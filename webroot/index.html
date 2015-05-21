@@ -3,51 +3,46 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>Sample of websocket with golang</title>
-    <link rel="stylesheet" href="vender/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="vender/bootstrap/css/bootstrap-responsive.min.css">
+    	<link rel="stylesheet" href="vender/bootstrap/css/bootstrap.min.css">
+		<script src="vender/jquery-2.1.4.min.js"></script>
 		<script src="vender/bootstrap/js/bootstrap.min.js"></script>
-		<script src="vender/jquery-1.8.3.min.js">
-		</script>
-		<script src="vender/knockout-2.2.0.js">
-		</script>
-		<script src="vender/jquery.json-2.4.min.js">
-		</script>
-		<script data-main="js/main" src="vender/require.js">
+		<script src="vender/knockout-3.3.0.js"></script>
+		<script src="vender/jquery.json-2.5.1.min.js"></script>
+		<script data-main="js/main" src="vender/require-2.1.17.js">
 		</script>
 	</head>
 
 	<body>
 
-	<div class="grid-row">
+	<div class="row">
 
-		<div class="span3">
+		<div class="col-md-3">
 		</div>
 
-		<div class="span6">
+		<div class="col-md-6">
 
 			<h1>Input</h1>
-			<form class="well form-horizontal" data-bind="with: editingMessage">
+			<form class="form-horizontal" data-bind="with: editingMessage">
 
 				<!-- Author -->
-				<div class="control-group">
-					<label class="control-label" for="inputAuthor">Author :</label>
-					<div class="controls">
-						<input id="inputAuthor" type="text" data-bind="value: author"/>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="inputAuthor">Author :</label>
+					<div class="col-sm-10">
+						<input id="inputAuthor" type="text" class="form-control" data-bind="value: author"/>
 					</div>
 				</div>
 
 				<!-- Body -->
-				<div class="control-group">
-					<label class="control-label" for="inputBody">Message :</label>
-					<div class="controls">
-						<textarea id="inputBody" data-bind="value: body">
-						</textarea>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="inputBody">Message :</label>
+					<div class="col-sm-10">
+						<textarea id="inputBody" class="form-control" data-bind="value: body"></textarea>
 					</div>
 				</div>
 
-				<div class="control-group">
-					<div class="controls">
-						<a href="#" class="btn pull-right" data-bind="click: $parent.send.bind($parent)">Send</a>
+				<div class="form-group">
+					<div class="col-sm-12">
+						<a href="#" class="btn btn-primary pull-right" data-bind="click: $parent.send.bind($parent)">Send</a>
 					</div>
 				</div>
 			</form>
@@ -66,7 +61,7 @@
 
 		</div>
 
-		<div class="span3">
+		<div class="col-md-3">
 		</div>
 
 	</body>
