@@ -1,0 +1,11 @@
+{
+  "name": "irc v2",
+  "main": "assets/html/index.html",
+  "window": {
+    "frame": false,
+    "toolbar": false,
+    "show": false,
+    "min_width": 640,
+    "min_height": 480
+  }
+}
