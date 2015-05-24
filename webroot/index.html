@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>Sample of websocket with golang</title>
-    	<link rel="stylesheet" href="vender/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="vender/bootstrap/css/bootstrap.min.css">
 		<script src="vender/openpgp-1.0.1.min.js"></script>
 		<script src="vender/jquery-2.1.4.min.js"></script>
 		<script src="vender/bootstrap/js/bootstrap.min.js"></script>
@@ -22,42 +22,51 @@
 
 		<div class="col-md-6">
 
-			<h1>Input</h1>
-			<form class="form-horizontal" data-bind="with: editingMessage">
+			<h1>Channels</h1>
+			<div data-bind="foreach: channels">
+				<h2>
+					<!-- ko text: hash --><!-- /ko -->
+				</h2>
 
-				<!-- Author -->
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="inputAuthor">Author :</label>
-					<div class="col-sm-10">
-						<input id="inputAuthor" type="text" class="form-control" data-bind="value: author"/>
+				<h1>Input</h1>
+				<form class="form-horizontal" data-bind="with: editingMessage">
+
+					<!-- Author -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="inputAuthor">Author:</label>
+						<div class="col-sm-10">
+							<input id="inputAuthor" type="text" class="form-control" data-bind="value: author"/>
+						</div>
+					</div>
+
+					<!-- Body -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="inputBody">Message:</label>
+						<div class="col-sm-10">
+							<textarea id="inputBody" class="form-control" data-bind="value: body"></textarea>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-12">
+							<a href="#" class="btn btn-primary pull-right" data-bind="click: $parent.send.bind($parent)">Send</a>
+						</div>
+					</div>
+				</form>
+
+
+				<h1>Messages</h1>
+				<div data-bind="foreach: messages">
+					<div>
+						<h3>
+							<!-- ko text: author --><!-- /ko -->
+							says :
+						</h3>
+						<pre data-bind="text:body">
+						</pre>
 					</div>
 				</div>
 
-				<!-- Body -->
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="inputBody">Message :</label>
-					<div class="col-sm-10">
-						<textarea id="inputBody" class="form-control" data-bind="value: body"></textarea>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<div class="col-sm-12">
-						<a href="#" class="btn btn-primary pull-right" data-bind="click: $parent.send.bind($parent)">Send</a>
-					</div>
-				</div>
-			</form>
-
-			<h1>Messages</h1>
-			<div data-bind="foreach: messages">
-				<div>
-					<h3>
-						<!-- ko text: author --><!-- /ko -->
-						says :
-					</h3>
-					<pre data-bind="text:body">
-					</pre>
-				</div>
 			</div>
 
 		</div>
