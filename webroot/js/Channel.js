@@ -9,6 +9,7 @@ define(
 			var that = this;
 			this.hash = ko.observable(hash);
 			this.messages = ko.observableArray();
+			this.visible = ko.observable(false);
 
 			this.editingMessage = ko.observable(new Message());
 

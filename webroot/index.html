@@ -4,6 +4,7 @@
 		<meta charset="UTF-8" />
 		<title>Sample of websocket with golang</title>
 		<link rel="stylesheet" href="vender/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/main.css">
 		<script src="vender/openpgp-1.0.1.min.js"></script>
 		<script src="vender/jquery-2.1.4.min.js"></script>
 		<script src="vender/bootstrap/js/bootstrap.min.js"></script>
@@ -15,64 +16,80 @@
 
 	<body>
 
-	<div class="row">
+	<div class="row height-100">
 
-		<div class="col-md-3">
-		</div>
+		<div class="col-md-1 height-100"></div>
 
-		<div class="col-md-6">
+		<div class="col-md-7 height-100">
 
-			<h1>Channels</h1>
 			<div data-bind="foreach: channels">
-				<h2>
-					<!-- ko text: hash --><!-- /ko -->
-				</h2>
+				<div data-bind="css: { displayblock: visible() }" class="displaynone">
 
-				<h1>Input</h1>
-				<form class="form-horizontal" data-bind="with: editingMessage">
 
-					<!-- Author -->
-					<div class="form-group">
-						<label class="col-sm-2 control-label" for="inputAuthor">Author:</label>
-						<div class="col-sm-10">
-							<input id="inputAuthor" type="text" class="form-control" data-bind="value: author"/>
+					<h1>Messages</h1>
+					<div data-bind="foreach: messages" class="messages">
+						<div>
+							<h3>
+								<!-- ko text: author --><!-- /ko -->
+								says :
+							</h3>
+							<pre data-bind="text:body">
+							</pre>
 						</div>
 					</div>
 
-					<!-- Body -->
-					<div class="form-group">
-						<label class="col-sm-2 control-label" for="inputBody">Message:</label>
-						<div class="col-sm-10">
-							<textarea id="inputBody" class="form-control" data-bind="value: body"></textarea>
-						</div>
+					<div style="width:100%;position:absolute;bottom:0;">
+						<h1>Input</h1>
+						<form class="form-horizontal" data-bind="with: editingMessage">
+
+							<!-- Author -->
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="inputAuthor">Author:</label>
+								<div class="col-sm-10">
+									<input id="inputAuthor" type="text" class="form-control" data-bind="value: author"/>
+								</div>
+							</div>
+
+							<!-- Body -->
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="inputBody">Message:</label>
+								<div class="col-sm-10">
+									<textarea id="inputBody" class="form-control" data-bind="value: body"></textarea>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-12">
+									<a href="#" class="btn btn-primary pull-right" data-bind="click: $parent.send.bind($parent)">Send</a>
+								</div>
+							</div>
+						</form>
 					</div>
 
-					<div class="form-group">
-						<div class="col-sm-12">
-							<a href="#" class="btn btn-primary pull-right" data-bind="click: $parent.send.bind($parent)">Send</a>
-						</div>
-					</div>
-				</form>
-
-
-				<h1>Messages</h1>
-				<div data-bind="foreach: messages">
-					<div>
-						<h3>
-							<!-- ko text: author --><!-- /ko -->
-							says :
-						</h3>
-						<pre data-bind="text:body">
-						</pre>
-					</div>
 				</div>
-
 			</div>
 
 		</div>
 
-		<div class="col-md-3">
+		<div class="col-md-3 height-100">
+			<h1>Channels</h1>
+			<form class="form-group row">
+				<div class="col-md-10 nopadding">
+					<input type="text" class="form-control" placeholder="fingerprint" data-bind="value: newChannelHash" />
+				</div>
+				<a href="#" class="btn btn-primary col-md-2" data-bind="click: join(newChannelHash())">Join</a>
+			</form>
+			<ul class="nav nav-pills nav-stacked" data-bind="foreach: channels">
+				<li role="presentation" data-bind="css: { active: visible() }">
+					<a href="#" data-bind="click: $parent.show(hash())">
+						<!-- ko text: hash --><!-- /ko -->
+						<!-- <span class="badge" style="float: right;">4</span> -->
+					</a>
+				</li>
+			</ul>
 		</div>
+
+		<div class="col-md-1 height-100"></div>
 
 	</body>
 </html>

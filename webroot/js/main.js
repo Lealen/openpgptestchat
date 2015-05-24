@@ -4,11 +4,20 @@ define(
 		"ChannelList"
 	],
 	function(ChannelList) {
+		var that = this;
+
 		var ws = new WebSocket("ws://localhost:8080/entry");
 		var list = new ChannelList(ws);
 		ko.applyBindings(list);
-
-		list.join(ws, "1")
-		list.join(ws, "2")
 	}
 );
+
+function resize() {
+	$(".messages").each(function() {
+		$(this).css("height", $(window).height()-50-250);
+	});
+}
+
+$(window).on('resize', function(){
+	resize();
+});
