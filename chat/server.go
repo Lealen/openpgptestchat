@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"code.google.com/p/go.net/websocket"
+	"golang.org/x/net/websocket"
 )
 
 // Chat server.
@@ -70,6 +70,30 @@ func (s *Server) Err(err error) {
 func (s *Server) sendAll(msg *Message) {
 	for _, c := range s.clients {
 		c.Write(msg)
+	}
+}
+
+func (s *Server) sendChannel(msg *Message, from *Client) {
+	log.Println(msg)
+	msg.Author += "@" + from.fingerprint
+	for _, c := range s.clients {
+		for _, ch := range c.channels {
+			if msg.Hash == ch {
+				c.Write(msg)
+			}
+		}
+	}
+}
+
+func (s *Server) sendPrivate(msg *Message, from *Client) {
+	log.Println(msg)
+	msg.Author += "@" + from.fingerprint
+	for _, c := range s.clients {
+		if msg.Hash == c.fingerprint {
+			msgcopy := *msg
+			msgcopy.Hash = from.fingerprint
+			c.Write(&msgcopy)
+		}
 	}
 }
 

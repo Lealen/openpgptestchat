@@ -29,16 +29,21 @@
 					<h1>Messages</h1>
 					<div data-bind="foreach: messages" class="messages">
 						<div>
-							<h3>
+							<h4>
 								<!-- ko text: author --><!-- /ko -->
 								says :
-							</h3>
+							</h4>
 							<pre data-bind="text:body">
 							</pre>
 						</div>
 					</div>
 
 					<div style="width:100%;position:absolute;bottom:0;">
+
+						<div data-bind="style: { display: locked() ? 'block' : 'none'}">
+							You dont get public key from server for this channel, something went wrong? or maybe someone is not connected. :(
+						</div>
+
 						<h1>Input</h1>
 						<form class="form-horizontal" data-bind="with: editingMessage">
 
@@ -63,6 +68,7 @@
 									<a href="#" class="btn btn-primary pull-right" data-bind="click: $parent.send.bind($parent)">Send</a>
 								</div>
 							</div>
+
 						</form>
 					</div>
 
@@ -72,21 +78,52 @@
 		</div>
 
 		<div class="col-md-3 height-100">
-			<h1>Channels</h1>
-			<form class="form-group row">
-				<div class="col-md-10 nopadding">
-					<input type="text" class="form-control" placeholder="fingerprint" data-bind="value: newChannelHash" />
-				</div>
-				<a href="#" class="btn btn-primary col-md-2" data-bind="click: join(newChannelHash())">Join</a>
-			</form>
-			<ul class="nav nav-pills nav-stacked" data-bind="foreach: channels">
-				<li role="presentation" data-bind="css: { active: visible() }">
-					<a href="#" data-bind="click: $parent.show(hash())">
-						<!-- ko text: hash --><!-- /ko -->
-						<!-- <span class="badge" style="float: right;">4</span> -->
-					</a>
-				</li>
-			</ul>
+			<div data-bind="style: { display: loggedin() ? 'none' : 'block' }">
+				<h1>Keys</h1>
+				<div class="input-group">
+					<span class="input-group-addon">
+						Public
+					</span>
+					<input type="file" class="form-control" name="publickey" id="publickeyfile">
+				</div> <br />
+				<div class="input-group">
+					<span class="input-group-addon">
+						Private
+					</span>
+					<input type="file" class="form-control" name="privatekey" id="privatekeyfile">
+				</div> <br />
+				<div class="input-group">
+					<span class="input-group-addon">
+						Passphrate
+					</span>
+					<input type="password" class="form-control" name="passphrate" id="passphrate" placeholder="passphrate">
+				</div> <br />
+				<a href="#" class="btn btn-primary " data-bind="click: connect()">Connect</a>
+			</div>
+			<div data-bind="style: { display: loggedin() ? 'block' : 'none' }" style="display:none;">
+				<h2>Your fingerprint: <!-- ko text: fingerprint --><!-- /ko --></h2>
+				<h1>Channels</h1>
+				<form class="form-group row">
+					<div class="col-md-3 nopadding">
+						<select class="form-control" data-bind="value: newChannelType">
+							<option value="channelmessagetype">Channel</option>
+							<option value="privatemessagetype">Private</option>
+						</select>
+					</div>
+					<div class="col-md-7 nopadding">
+						<input type="text" class="form-control" placeholder="channel name / user fingerprint" data-bind="value: newChannelHash" />
+					</div>
+					<a href="#" class="btn btn-primary col-md-2" data-bind="click: join(newChannelHash(), newChannelType())">Join</a>
+				</form>
+				<ul class="nav nav-pills nav-stacked" data-bind="foreach: channels">
+					<li role="presentation" data-bind="css: { active: visible() }">
+						<a href="#" data-bind="click: $parent.show(hash())">
+							<!-- ko text: hash --><!-- /ko -->
+							<!-- <span class="badge" style="float: right;">4</span> -->
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 
 		<div class="col-md-1 height-100"></div>
