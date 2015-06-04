@@ -6,7 +6,7 @@ define(
 	function(ChannelList) {
 		var that = this;
 
-		var ws = new WebSocket("ws://localhost:8080/entry");
+		var ws = new WebSocket("ws://" + location.hostname + ":8080/entry");
 		var list = new ChannelList(ws);
 		ko.applyBindings(list);
 	}

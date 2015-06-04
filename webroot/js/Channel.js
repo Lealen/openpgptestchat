@@ -28,7 +28,7 @@ define(
 				//send
 				var model = this.editingMessage().toModel();
 				if(this.type()=="privatemessagetype") {
-					
+
 					model2 = this.editingMessage().toModel();
 					model2.author = model2.author+"@"+this.clientfingerprint;
 					that.messages.push(model2);
