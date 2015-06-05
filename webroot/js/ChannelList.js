@@ -54,7 +54,7 @@ define(
 
 			this.join = function(newhash, newchanneltype) {
 				$.each(that.channels(), function(k, v) {
-					if(v.hash()==newhash) {
+					if(v.hash()==newhash && v.type()==newchanneltype) {
 						newhash = "";
 					}
 				});
@@ -85,15 +85,16 @@ define(
 					});
 				}
 
-				this.show(newhash);
+				this.show(newhash, newchanneltype);
 				this.newChannelHash("");
 				setTimeout(function(){resize();}(), 1000); //temporary
 			};
 
-			this.show = function(hash) {
+			this.show = function(hash, type) {
 				$.each(this.channels(), function(k, v) {
-					if(v.hash()==hash) {
+					if(v.hash()==hash && v.type()==type) {
 						v.visible(true);
+						v.unread(0);
 					} else {
 						v.visible(false);
 					}
@@ -125,6 +126,9 @@ define(
 					$.each(that.channels(), function(k, v) {
 						if(v.hash()==model.hash && v.type()==model.type) {
 							v.messages.push(msg);
+							if(!v.visible()) {
+								v.unread(v.unread()+1);
+							}
 							found = true
 						}
 					});

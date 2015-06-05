@@ -11,6 +11,7 @@ define(
 			this.type = ko.observable(type);
 			this.hash = ko.observable(hash);
 			this.messages = ko.observableArray();
+			this.unread = ko.observable(0);
 			this.visible = ko.observable(false);
 
 			this.locked = ko.observable(true);
